@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <flow name="anzo-singlepage-experience-api-main">
+        <http:listener path="${http.listener.path}" config-ref="x-singlepageapp-http-listener">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="anzo-singlepage-experience-api-config" />
+        <error-handler ref="x-singlepage-app-error-handler" />
+    </flow>
+    <flow name="anzo-singlepage-experience-api-console">
+        <http:listener config-ref="x-singlepageapp-http-listener" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="anzo-singlepage-experience-api-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform>
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="get:\_health:anzo-singlepage-experience-api-config">
+        <ee:transform doc:name="Transform Message" doc:id="da0dcd52-07a6-45d7-ac13-3df3125f61c4">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	app: "x-singlepageapp-ag-anzo",
+	status: "OK"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <logger level="INFO" message="OK" />
+        <error-handler ref="x-singlepage-app-error-handler" />
+    </flow>
+    <flow name="get:\flights\availability:anzo-singlepage-experience-api-config">
+        <http:request method="GET" doc:name="to p-reservations-ag-anzo" doc:id="820e0391-7ee5-425a-b7be-7e7b9136c3b5" config-ref="x-singlepageapp-http-request" path="${http.request.p.reservations.path}availability">
+            <error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="APP:TECHNICAL_ERROR" />
+            <error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="APP:CIRCUIT_BREAKER" />
+            <http:headers><![CDATA[#[output application/java
+---
+{
+	"X-ClientSecret" : p('secure::p.reservations.ag.anzo.clientSecret'),
+	"X-ClientID" : p('secure::p.reservations.ag.anzo.clientId'),
+	"X-TrackingID" : attributes.headers['X-TrackingId']
+}]]]></http:headers>
+            <http:query-params><![CDATA[#[output application/java
+---
+{
+	"fromCity": attributes.queryParams.fromCity default '',
+	"toCity": attributes.queryParams.toCity default '',
+	"totalPax": attributes.queryParams.totalPax default '',
+	"contactEmail": attributes.queryParams.contactEmail default '',
+	"journeyDate" : attributes.queryParams.journeyDate default '',
+	"priceRequired": attributes.queryParams.priceRequired default ''
+}]]]></http:query-params>
+        </http:request>
+        <logger level="INFO" doc:name="Logger" doc:id="b014c300-8c76-4442-8338-8195dab19124" message="Response processed" />
+        <error-handler ref="x-singlepage-app-error-handler" />
+    </flow>
+    <flow name="post:\flights\(flightId)\new-booking:application\json:anzo-singlepage-experience-api-config">
+        <set-variable value="#[payload]" doc:name="Set Variable" doc:id="a2b107df-4c17-40e8-ba73-fe6db555cc0a" variableName="reqPayload" />
+        <set-variable value="#[attributes.uriParams.'flightId']" doc:name="Set Variable" doc:id="3ebec5f6-86b5-47cb-ada2-78c6d9cfbdce" variableName="flightId" />
+        <http:request method="POST" doc:name="to p-reservations-ag-anzo" doc:id="9a92cd09-1a3a-44df-b3c9-6e73070ba042" config-ref="x-singlepageapp-http-request" path="${http.request.p.reservations.path}{flightId}/new-booking">
+            <error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="APP:NB_TECHNICAL_ERROR" />
+            <error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="APP:NB_CIRCUIT_BREAKER" />
+            <error-mapping sourceType="HTTP:CONNECTIVITY" targetType="APP:NB_TECHNICAL_ERROR" />
+            <http:headers><![CDATA[#[output application/java
+---
+{
+	"X-ClientSecret" : p('secure::p.reservations.ag.anzo.clientSecret'),
+	"X-ClientID" : p('secure::p.reservations.ag.anzo.clientId'),
+	"X-TrackingID" : attributes.headers['X-TrackingId']
+}]]]></http:headers>
+            <http:uri-params><![CDATA[#[output application/java
+---
+{
+	"flightId" : vars.flightId
+}]]]></http:uri-params>
+            <http:query-params><![CDATA[#[output application/java
+---
+{
+	"fromCity": attributes.queryParams.fromCity default '',
+	"toCity": attributes.queryParams.toCity default '',
+	"totalPax": attributes.queryParams.totalPax default '',
+	"contactEmail": attributes.queryParams.contactEmail default '',
+	"priceRequired": attributes.queryParams.priceRequired default ''
+}]]]></http:query-params>
+        </http:request>
+        <logger level="INFO" message="booking confirmed !" />
+        <error-handler ref="x-singlepage-app-error-handler" />
+    </flow>
+</mule>

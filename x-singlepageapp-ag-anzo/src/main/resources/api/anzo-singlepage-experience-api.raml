@@ -1,0 +1,152 @@
+#%RAML 1.0
+title: ANZO SinglePage Exp API
+description: |
+ API Manager Policy
+ 1, JWT Validation:
+    * JWT Signing Method: `RSA`
+    * JWT Signing Key Length: `256`
+    * JWT Key origin: `JWKS`
+    * JWKS Url: `https://dev-76641563.okta.com/oauth2/default/v1/keys`
+    * Methods and resources:
+    ** `ALL`
+    
+
+version: v1
+mediaType:
+  - application/json
+protocols:
+  - HTTP
+securedBy:
+  - 
+
+
+traits:
+  Trackable: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/trackable/1.0.1/trackable.raml
+  Errorable: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/errorable/2.0.0/errorable.raml
+  JWT: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/authorizable/1.0.0/authorizable.raml
+  
+
+types:
+  HealthType: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/healthtype/1.0.0/healthtype.raml
+  FlightsAvailabilityType: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/flightstype/2.0.6/flightstype.raml
+  FlightReservationType: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/reservationtype-100/2.0.4/reservationtype-100.raml
+  
+/_health:
+  description: provides API health
+  get:
+    is: [Trackable,Errorable,JWT]
+    responses:
+      200:
+        body:
+          application/json:
+            type: HealthType
+
+/flights:
+  /availability:
+    get:
+      description: fetches seats available between destinations
+      is: [Trackable, Errorable,JWT]
+      queryParameters:
+        fromCity?: string
+        toCity?: string
+        totalPax?: integer
+        contactEmail?: string
+        journeyDate?: string
+        priceRequired?: boolean
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: FlightsAvailabilityType
+              example: !include /common/examples/flightsAvailabilityResponse.json
+        400:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+        404:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+
+        405:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+        406:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+        415:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+        501:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+        500:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        503:
+          body:
+            application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+
+  /{flightId}:
+    /new-booking:
+      post:
+        description: new flight booking against a flightId
+        is: [Trackable, Errorable,JWT]
+        body:
+          application/json:
+            type: FlightReservationType
+        responses:
+          200:
+            body:
+              application/json:
+                type: FlightReservationType
+          400:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+          404:
+            body:
+             application/json:
+              type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+
+          405:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+          406:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+        
+          415:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+
+          500:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+          501:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml
+                  
+          503:
+            body:
+              application/json:
+                type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/error/2.0.1/error.raml

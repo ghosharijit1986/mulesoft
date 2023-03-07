@@ -1,0 +1,17 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Error Type
+
+properties:
+  status:
+    type: string
+    required: false
+    example: "Error"
+  code:
+    type: string
+    required: true
+    example: "500"
+  message:
+    type: string
+    required: true
+    example: "Internal Server Error"

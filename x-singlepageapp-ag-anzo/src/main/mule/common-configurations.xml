@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<apikit:config name="anzo-singlepage-experience-api-config" api="anzo-singlepage-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<http:listener-config name="x-singlepageapp-http-listener" doc:name="HTTP Listener config" doc:id="02dbd6e5-3b72-4a40-9235-55b0307eabcf" basePath="${http.basepath}">
+		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}" />
+	</http:listener-config>
+	<http:request-config name="x-singlepageapp-http-request" doc:name="HTTP Request configuration" doc:id="b3164bf5-06d5-4338-900f-23d9c367ed4f" basePath="${http.basepath}">
+		<http:request-connection host="${http.request.p.reservations.host}" port="${http.request.p.reservations.port}" connectionIdleTimeout="3000"/>
+	</http:request-config>
+	<file:config name="error-backup-file" doc:name="File Config" doc:id="7c8d228d-7853-408c-a5b7-2403f4a75c07" doc:description="error backup">
+	</file:config>
+	<api-gateway:autodiscovery apiId="${api.manager.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="8b4fbf7a-c314-47d7-8e6a-50e645d0e9ca" flowRef="anzo-singlepage-experience-api-main" />
+	<configuration-properties doc:name="Configuration properties" doc:id="d1e71026-0b5b-496a-ac6e-bb216020bcf1" file="properties\x-singlepageapp-ag-anzo-${env}.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="924ca004-19f1-4b6c-9623-6e2dfdf1bc6c" file="secure\properties\x-singlepageapp-ag-anzo-secure-${env}.yaml" key="password" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<global-property doc:name="Global Property" doc:id="a594b88d-7692-44b0-9d14-f7d66b72fe2e" name="env" value="dev" />
+</mule>

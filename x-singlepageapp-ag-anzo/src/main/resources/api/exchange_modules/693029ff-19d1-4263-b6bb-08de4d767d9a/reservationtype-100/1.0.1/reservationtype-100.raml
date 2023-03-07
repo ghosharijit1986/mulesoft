@@ -1,0 +1,15 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Reservation Type
+properties:
+  fromCity?: string
+  toCity?: string
+  startDt?: string
+  endDt?: string
+  contactName?: string
+  email?: string
+  customers?:
+    type: array
+    items:
+      !include exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/customertype/1.0.0/customertype.raml
+  

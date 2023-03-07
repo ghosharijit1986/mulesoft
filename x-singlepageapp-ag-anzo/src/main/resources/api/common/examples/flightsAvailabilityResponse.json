@@ -1,0 +1,18 @@
+{
+    "flights": [
+        {
+            "flightId": 122,
+            "departTime": "11:00 AEST",
+            "basePricePerAdult": 500,
+            "seatsAvailable": 296,
+            "routeId": "MS001"
+        },
+        {
+            "flightId": 123,
+            "departTime": "10:00 AEST",
+            "basePricePerAdult": 400,
+            "seatsAvailable": 300,
+            "routeId": "MS001"
+        }
+    ]
+}

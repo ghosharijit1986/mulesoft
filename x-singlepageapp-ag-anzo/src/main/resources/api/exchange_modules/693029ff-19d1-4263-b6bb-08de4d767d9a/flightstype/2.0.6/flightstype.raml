@@ -1,0 +1,58 @@
+#%RAML 1.0 DataType
+type: object
+description: flights data type
+properties:
+  flights:
+    type: array
+    items:
+      properties:
+        fromCity:
+          required: false
+          type: string
+          example: "Sydney"
+        toCity:
+          required: false
+          type: string
+          example: "Perth"
+        flightId:
+          required: false
+          type: integer
+          example: 122         
+        seatsAvailable:
+          required: false
+          type: integer
+          example: 200
+        basePricePerAdult:
+          required: false
+          type: integer
+          example: 300
+        journeyDate:
+          required: false
+          type: string
+          example: "2022-10-20"
+        routeId:
+          required: false
+          type: string
+          example: "MS001"
+        departTime:
+          required: false
+          type: string
+          example: "14:00 AEST"
+        totalPrice:
+          required: false
+          type: integer
+          example: 2000
+        bookingRef:
+          required: false
+          type: number
+          example: 38475.1737
+        bookingMessage:
+          maxLength: 50
+          required:  false
+          type: string
+          example: "Booking Confirmed"
+        retryNumber:
+          required: false
+          type: integer
+          example: 1
+          

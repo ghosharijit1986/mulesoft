@@ -1,0 +1,531 @@
+{
+	"info": {
+		"_postman_id": "ffeb7f0e-b4f0-46a3-82bf-0dca1085c9e0",
+		"name": "x-singlepage-app-ag-anzo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "3513345"
+	},
+	"item": [
+		{
+			"name": "/search flight with price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"totalPrice\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"bookingRef\");\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessToken": "eyJraWQiOiJZb1d2ZlRCcFVRTHpueG1ITnctcmFsTnc5SHppWjd6eTJvNUxWZUpCdjEwIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULk5yMjJlMThmbFJHRDBBNVNiRk56dmRzNkl6TGVURU91YklvdTA0UDBmZjgiLCJpc3MiOiJodHRwczovL2Rldi03NjY0MTU2My5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NjYyNjIxMTUsImV4cCI6MTY2NjI2NTcxNSwiY2lkIjoiMG9hNndyNXRwcndVR3Nld3E1ZDciLCJ1aWQiOiIwMHU1ZWZod2Z5VkUxUHZDRTVkNyIsInNjcCI6WyJtdWxlc29mdC1zcGEiXSwiYXV0aF90aW1lIjoxNjY2MjYyMDY1LCJzdWIiOiJnaG9zaGFyaWppdDg2QGdtYWlsLmNvbSJ9.LK8TMWP0BmDGAeeu097vUBk-PZAu_i3EBd2XznLZwDWrLOILylww15n5PRQNzZNF2wZTALjqKzGI6Q11CNWu8PLpfk1jfjLK7-10Az-i1B6UeTADKTV97tTUzM2C-VrzjyuaW4zwpGxVG0bTTADyizpqQySMdLbyd_1f8gfN8YJeyp4SLHrfv2KDFSuzV195efSwHsgYuVI_ACTCR4U7v6iYGEWMJKCtSePJc5aJEQZwOCf8L37S64ZsXZTpP5HyX_vkl083Zo2Izld7V-Bvg4tRWxUcwrnWqNp6vUEOlr1MxD-061GQ29rm34V8tztXWmH_qASUCr6nT7qio3sOXw",
+						"tokenType": "Bearer",
+						"client_authentication": "body",
+						"addTokenTo": "header",
+						"state": "A",
+						"scope": "mulesoft-spa",
+						"clientSecret": "TmPgq_C11y8P1wrNMneYbs4Bpds9KaLW1ACwr8Oh",
+						"clientId": "0oa6wr5tprwUGsewq5d7",
+						"useBrowser": true,
+						"authUrl": "https://dev-76641563.okta.com/oauth2/default/v1/authorize",
+						"redirect_uri": "http://localhost:8080/authorization-code/callback",
+						"accessTokenUrl": "https://dev-76641563.okta.com/oauth2/default/v1/token",
+						"tokenName": "SPA OKT"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "content-type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientId",
+						"value": " Id1234",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-ClientSecret",
+						"value": " password",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-TrackingId",
+						"value": " 002",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/dev/x-singlepageapp-ag-anzo/api/v1/flights/availability?fromCity=TAS&toCity=PER&totalPax=4&contactEmail=xyz&priceRequired=true&journeyDate=2022-10-20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"dev",
+						"x-singlepageapp-ag-anzo",
+						"api",
+						"v1",
+						"flights",
+						"availability"
+					],
+					"query": [
+						{
+							"key": "fromCity",
+							"value": "TAS"
+						},
+						{
+							"key": "toCity",
+							"value": "PER"
+						},
+						{
+							"key": "totalPax",
+							"value": "4"
+						},
+						{
+							"key": "contactEmail",
+							"value": "xyz"
+						},
+						{
+							"key": "priceRequired",
+							"value": "true"
+						},
+						{
+							"key": "journeyDate",
+							"value": "2022-10-20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/new booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"bookingStatus\");\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"totalPrice\");\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"paymentStatus\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessToken": "eyJraWQiOiJZb1d2ZlRCcFVRTHpueG1ITnctcmFsTnc5SHppWjd6eTJvNUxWZUpCdjEwIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULk5yMjJlMThmbFJHRDBBNVNiRk56dmRzNkl6TGVURU91YklvdTA0UDBmZjgiLCJpc3MiOiJodHRwczovL2Rldi03NjY0MTU2My5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NjYyNjIxMTUsImV4cCI6MTY2NjI2NTcxNSwiY2lkIjoiMG9hNndyNXRwcndVR3Nld3E1ZDciLCJ1aWQiOiIwMHU1ZWZod2Z5VkUxUHZDRTVkNyIsInNjcCI6WyJtdWxlc29mdC1zcGEiXSwiYXV0aF90aW1lIjoxNjY2MjYyMDY1LCJzdWIiOiJnaG9zaGFyaWppdDg2QGdtYWlsLmNvbSJ9.LK8TMWP0BmDGAeeu097vUBk-PZAu_i3EBd2XznLZwDWrLOILylww15n5PRQNzZNF2wZTALjqKzGI6Q11CNWu8PLpfk1jfjLK7-10Az-i1B6UeTADKTV97tTUzM2C-VrzjyuaW4zwpGxVG0bTTADyizpqQySMdLbyd_1f8gfN8YJeyp4SLHrfv2KDFSuzV195efSwHsgYuVI_ACTCR4U7v6iYGEWMJKCtSePJc5aJEQZwOCf8L37S64ZsXZTpP5HyX_vkl083Zo2Izld7V-Bvg4tRWxUcwrnWqNp6vUEOlr1MxD-061GQ29rm34V8tztXWmH_qASUCr6nT7qio3sOXw",
+						"tokenType": "Bearer",
+						"client_authentication": "body",
+						"addTokenTo": "header",
+						"state": "A",
+						"scope": "mulesoft-spa",
+						"clientSecret": "TmPgq_C11y8P1wrNMneYbs4Bpds9KaLW1ACwr8Oh",
+						"clientId": "0oa6wr5tprwUGsewq5d7",
+						"useBrowser": true,
+						"authUrl": "https://dev-76641563.okta.com/oauth2/default/v1/authorize",
+						"redirect_uri": "http://localhost:8080/authorization-code/callback",
+						"accessTokenUrl": "https://dev-76641563.okta.com/oauth2/default/v1/token",
+						"tokenName": "SPA OKT"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientId",
+						"value": " Id1234",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientSecret",
+						"value": " password",
+						"type": "text"
+					},
+					{
+						"key": "X-TrackingId",
+						"value": " 002",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \r\n  \"totalPax\": 2,\r\n  \"totalPrice\": 4000,\r\n  \"startDt\":\"2022-10-20\",\r\n  \"bookingRef\": \"94250.87699202225\",\r\n  \r\n   \"customers\": [\r\n    {\r\n      \"name\": \"Arijit Ghosh\",\r\n      \"age\": 31,\r\n      \"email\": \"xyz@myflight.com\"\r\n    },\r\n    \r\n    {\r\n      \"name\": \"Arijit Das\",\r\n      \"age\": 32,\r\n      \"email\": \"xy1z@myflight.com\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/dev/x-singlepageapp-ag-anzo/api/v1/flights/127/new-booking"
+			},
+			"response": []
+		},
+		{
+			"name": "/search flights only",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"env\", \"dev\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"basePricePerAdult\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessToken": "eyJraWQiOiJZb1d2ZlRCcFVRTHpueG1ITnctcmFsTnc5SHppWjd6eTJvNUxWZUpCdjEwIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULnowQnZWQVZlRVBmNXlXWHNhOHpETzZjZ1NqUDVxdXJ5aVNvdTdwbm9fY2ciLCJpc3MiOiJodHRwczovL2Rldi03NjY0MTU2My5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NjYyNDY4MjEsImV4cCI6MTY2NjI1MDQyMSwiY2lkIjoiMG9hNndyNXRwcndVR3Nld3E1ZDciLCJ1aWQiOiIwMHU1ZWZod2Z5VkUxUHZDRTVkNyIsInNjcCI6WyJtdWxlc29mdC1zcGEiXSwiYXV0aF90aW1lIjoxNjY2MjQ2Nzk2LCJzdWIiOiJnaG9zaGFyaWppdDg2QGdtYWlsLmNvbSJ9.ZF--FZf6uQKACsFXPwV4bJh5L8TyI9IGxnf0oP27LM3HHjuH5hwy7Z-5jtZEC2HPgaa-QD7KC41j7P_0ip4bJSqQ5rmWStyHl6t17HqZ9AuAl4om3gyAsMcjLfWMuM2eizfMZlKNTm3aBrKsLLWUfsD6y65WDYz5rQCP2WJPSEPEQSoRrwI9jdeiKZIVoT3dJPv3pY3kfIGij8UfMt8-i7ubTD4kt7CUmCWEmQj1gBLlTmLWJiTVc_SdYHJF8hmWjhPXcBx3v7fyi8_y1oobqRJM4v8eNuHX2-qKphCjNVgLawxlBdfuf5sSTzX3LdpLHtk_UlOkeX2tReUlWMx7ag",
+						"tokenType": "Bearer",
+						"client_authentication": "body",
+						"addTokenTo": "header",
+						"state": "A",
+						"scope": "mulesoft-spa",
+						"clientSecret": "TmPgq_C11y8P1wrNMneYbs4Bpds9KaLW1ACwr8Oh",
+						"clientId": "0oa6wr5tprwUGsewq5d7",
+						"useBrowser": true,
+						"authUrl": "https://dev-76641563.okta.com/oauth2/default/v1/authorize",
+						"redirect_uri": "http://localhost:8080/authorization-code/callback",
+						"accessTokenUrl": "https://dev-76641563.okta.com/oauth2/default/v1/token",
+						"tokenName": "SPA OKT"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "content-type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientId",
+						"value": " Id1234",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientSecret",
+						"value": " password",
+						"type": "text"
+					},
+					{
+						"key": "X-TrackingId",
+						"value": " 002",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/dev/x-singlepageapp-ag-anzo/api/v1/flights/availability?fromCity=SYD&toCity=PER&totalPax=4&contactEmail=xyz&priceRequired=false&journeyDate=2022-10-20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"dev",
+						"x-singlepageapp-ag-anzo",
+						"api",
+						"v1",
+						"flights",
+						"availability"
+					],
+					"query": [
+						{
+							"key": "fromCity",
+							"value": "SYD"
+						},
+						{
+							"key": "toCity",
+							"value": "PER"
+						},
+						{
+							"key": "totalPax",
+							"value": "4"
+						},
+						{
+							"key": "contactEmail",
+							"value": "xyz"
+						},
+						{
+							"key": "priceRequired",
+							"value": "false"
+						},
+						{
+							"key": "journeyDate",
+							"value": "2022-10-20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/_health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"app\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessToken": "eyJraWQiOiJZb1d2ZlRCcFVRTHpueG1ITnctcmFsTnc5SHppWjd6eTJvNUxWZUpCdjEwIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULk5yMjJlMThmbFJHRDBBNVNiRk56dmRzNkl6TGVURU91YklvdTA0UDBmZjgiLCJpc3MiOiJodHRwczovL2Rldi03NjY0MTU2My5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NjYyNjIxMTUsImV4cCI6MTY2NjI2NTcxNSwiY2lkIjoiMG9hNndyNXRwcndVR3Nld3E1ZDciLCJ1aWQiOiIwMHU1ZWZod2Z5VkUxUHZDRTVkNyIsInNjcCI6WyJtdWxlc29mdC1zcGEiXSwiYXV0aF90aW1lIjoxNjY2MjYyMDY1LCJzdWIiOiJnaG9zaGFyaWppdDg2QGdtYWlsLmNvbSJ9.LK8TMWP0BmDGAeeu097vUBk-PZAu_i3EBd2XznLZwDWrLOILylww15n5PRQNzZNF2wZTALjqKzGI6Q11CNWu8PLpfk1jfjLK7-10Az-i1B6UeTADKTV97tTUzM2C-VrzjyuaW4zwpGxVG0bTTADyizpqQySMdLbyd_1f8gfN8YJeyp4SLHrfv2KDFSuzV195efSwHsgYuVI_ACTCR4U7v6iYGEWMJKCtSePJc5aJEQZwOCf8L37S64ZsXZTpP5HyX_vkl083Zo2Izld7V-Bvg4tRWxUcwrnWqNp6vUEOlr1MxD-061GQ29rm34V8tztXWmH_qASUCr6nT7qio3sOXw",
+						"tokenType": "Bearer",
+						"client_authentication": "body",
+						"addTokenTo": "header",
+						"state": "A",
+						"scope": "mulesoft-spa",
+						"clientSecret": "TmPgq_C11y8P1wrNMneYbs4Bpds9KaLW1ACwr8Oh",
+						"clientId": "0oa6wr5tprwUGsewq5d7",
+						"useBrowser": true,
+						"authUrl": "https://dev-76641563.okta.com/oauth2/default/v1/authorize",
+						"redirect_uri": "http://localhost:8080/authorization-code/callback",
+						"accessTokenUrl": "https://dev-76641563.okta.com/oauth2/default/v1/token",
+						"tokenName": "SPA OKT"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "content-type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientId",
+						"value": " Id1234",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-ClientSecret",
+						"value": " password",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-TrackingId",
+						"value": " 002",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/dev/x-singlepageapp-ag-anzo/api/v1/_health"
+			},
+			"response": []
+		},
+		{
+			"name": "/invalid booking-ref",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid Booking Reference provided\");\r",
+							"});\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"accessToken": "eyJraWQiOiJZb1d2ZlRCcFVRTHpueG1ITnctcmFsTnc5SHppWjd6eTJvNUxWZUpCdjEwIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULk5yMjJlMThmbFJHRDBBNVNiRk56dmRzNkl6TGVURU91YklvdTA0UDBmZjgiLCJpc3MiOiJodHRwczovL2Rldi03NjY0MTU2My5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NjYyNjIxMTUsImV4cCI6MTY2NjI2NTcxNSwiY2lkIjoiMG9hNndyNXRwcndVR3Nld3E1ZDciLCJ1aWQiOiIwMHU1ZWZod2Z5VkUxUHZDRTVkNyIsInNjcCI6WyJtdWxlc29mdC1zcGEiXSwiYXV0aF90aW1lIjoxNjY2MjYyMDY1LCJzdWIiOiJnaG9zaGFyaWppdDg2QGdtYWlsLmNvbSJ9.LK8TMWP0BmDGAeeu097vUBk-PZAu_i3EBd2XznLZwDWrLOILylww15n5PRQNzZNF2wZTALjqKzGI6Q11CNWu8PLpfk1jfjLK7-10Az-i1B6UeTADKTV97tTUzM2C-VrzjyuaW4zwpGxVG0bTTADyizpqQySMdLbyd_1f8gfN8YJeyp4SLHrfv2KDFSuzV195efSwHsgYuVI_ACTCR4U7v6iYGEWMJKCtSePJc5aJEQZwOCf8L37S64ZsXZTpP5HyX_vkl083Zo2Izld7V-Bvg4tRWxUcwrnWqNp6vUEOlr1MxD-061GQ29rm34V8tztXWmH_qASUCr6nT7qio3sOXw",
+						"tokenType": "Bearer",
+						"client_authentication": "body",
+						"addTokenTo": "header",
+						"state": "A",
+						"scope": "mulesoft-spa",
+						"clientSecret": "TmPgq_C11y8P1wrNMneYbs4Bpds9KaLW1ACwr8Oh",
+						"clientId": "0oa6wr5tprwUGsewq5d7",
+						"useBrowser": true,
+						"authUrl": "https://dev-76641563.okta.com/oauth2/default/v1/authorize",
+						"redirect_uri": "http://localhost:8080/authorization-code/callback",
+						"accessTokenUrl": "https://dev-76641563.okta.com/oauth2/default/v1/token",
+						"tokenName": "SPA OKT"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientId",
+						"value": " Id1234",
+						"type": "text"
+					},
+					{
+						"key": "X-ClientSecret",
+						"value": " password",
+						"type": "text"
+					},
+					{
+						"key": "X-TrackingId",
+						"value": " 002",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \r\n  \"totalPax\": 2,\r\n  \"totalPrice\": 4000,\r\n  \"startDt\":\"2022-10-20\",\r\n  \"bookingRef\": \"56866o9959\",\r\n  \r\n   \"customers\": [\r\n    {\r\n      \"name\": \"Arijit Ghosh\",\r\n      \"age\": 31,\r\n      \"email\": \"xyz@myflight.com\"\r\n    },\r\n    \r\n    {\r\n      \"name\": \"Arijit Das\",\r\n      \"age\": 32,\r\n      \"email\": \"xy1z@myflight.com\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/dev/x-singlepageapp-ag-anzo/api/v1/flights/127/new-booking"
+			},
+			"response": []
+		}
+	]
+}

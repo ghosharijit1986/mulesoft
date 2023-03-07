@@ -1,0 +1,33 @@
+#%RAML 1.0 DataType
+type: object
+description: flights response data type
+properties:
+  flights:
+    type: array
+    items:
+      properties:
+        flightId:
+          required: false
+          type: integer
+        seatsAvailable:
+          required: false
+          type: string
+        basePricePerAdult:
+          required: false
+          type: integer
+        routeId:
+          required: false
+          type: string
+        departTime:
+          required: false
+          type: string
+        totalPrice:
+          required: false
+          type: integer
+        bookingRef:
+          required: false
+          type: number
+        reservationDetails:
+          required: false
+          type: !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/reservationtype-100/1.0.1/reservationtype-100.raml
+          

@@ -1,0 +1,66 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Reservation Type
+properties:
+  hotelName:
+    required: false
+    type: string
+    example: "Hilton"
+  flightid:
+    required: false
+    type: integer
+    example: 122
+
+  fromCity:
+    required: false
+    type: string
+    example: "Sydney"
+  toCity:
+    required: false
+    type: string
+    example: "Perth"
+  startDt:
+    required: false
+    type: string
+    example: "10102022"
+  endDt:
+    required: false
+    type: string
+    example: "20122022"
+  checkInTime:
+    required: false
+    type: string
+    example: "10:00 AEST"
+  departTime:
+    required: false
+    type: string
+    example: "13:00 AEST"
+  contactName:
+    required: false
+    type: string
+    example: "Arijit Ghosh"
+  email:
+    required: false
+    type: string
+    example: "xyz@myflight.com"
+  bookingRef:
+    required: false
+    type: string
+    example: "183847.737"
+  totalPrice:
+    required: false
+    type: integer
+    example: 2000
+  bookingStatus:
+    required: false
+    type: string
+    example: "Confirmed"
+  paymentStatus:
+    required: false
+    type: string
+    example: "Pending"
+  customers?:
+    type: array
+    items:
+      !include /exchange_modules/693029ff-19d1-4263-b6bb-08de4d767d9a/customertype/2.0.1/customertype.raml
+  

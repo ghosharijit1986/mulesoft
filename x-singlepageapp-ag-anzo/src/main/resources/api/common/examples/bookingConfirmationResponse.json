@@ -1,0 +1,21 @@
+{
+    "fromCity": "SYD",
+    "toCity": "PER",
+    "flightId": 125,
+    "departTime": "14:00 AEST",
+    "totalPrice": 4000,
+    "bookingStatus": "confirmed",
+    "paymentStatus": "Direct Debit successful",
+    "customers": [
+        {
+            "name": "Max",
+            "age": 31,
+            "email": "xyz@myflight.com"
+        },
+        {
+            "name": "Mule",
+            "age": 32,
+            "email": "xy1z@myflight.com"
+        }
+    ]
+}
